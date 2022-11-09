@@ -35,3 +35,9 @@ console.log("K" > "k")
 console.log("K" < "k")
 console.log("-------------------");
 
+
+
+// Strinkte gleich und Ungleichheit
+
+console.log("K" === "k")
+console.log("K" !== "k")
