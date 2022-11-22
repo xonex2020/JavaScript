@@ -19,8 +19,20 @@ const haushaltsbuch = {
                 datum: prompt("Datum")
             }
         );
+        
     },
 
+    eintraege_sortieren() {
+        this.eintraege.sort(function(a, b) {
+            if(a.datum > b.datum) {
+                return -1;
+            } else if(a.datum < b.datum) {
+                return 1;
+            } else {
+                return 0;
+            }
+        });
+    },
         
     eintrage_ausgeben() {
         console.clear;
@@ -72,6 +84,7 @@ const haushaltsbuch = {
         let weiterer_eintrag = true;
         while (weiterer_eintrag) {
             this.eintrag_erfassen();
+            this.eintraege_sortieren();
             this.eintrage_ausgeben();
             this.gesamtbilanz_erstellen();
             this.gesamtbilanz_ausgeben();
