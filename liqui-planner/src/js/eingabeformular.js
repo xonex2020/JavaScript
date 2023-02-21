@@ -3,26 +3,20 @@
 const eingabeformular = {
 
     formulardaten_holen(e) {
+
         return {
             titel: e.target.elements.titel.value,
             betrag: e.target.elements.betrag.value,
             einnahme: e.target.elements.einnahme.checked,
-            ausgabe: e.target.elements.ausgabe.checked,
             datum: e.target.elements.datum.valueAsDate
         }
     },
 
     formulardaten_verarbeiten(formulardaten) {
-        let typ;
-        if (formulardaten.einnahme === true) {
-            typ = "einnahme";
-        } else if (formulardaten.ausgabe === true) {
-            typ = "ausgabe";
-        }
-
+    
         return {
             titel: formulardaten.titel.trim(),
-            typ: typ,
+            typ: formulardaten.einnahme === false ? "ausgabe" : "einnahme",
             betrag: parseFloat(formulardaten.betrag) * 100,
             datum: formulardaten.datum
         }
@@ -33,9 +27,6 @@ const eingabeformular = {
         let fehler = [];
         if (formulardaten.titel === "") {
             fehler.push("Titel");
-        }
-        if (formulardaten.typ === undefined || formulardaten.typ.match(/^(?:einnahme|ausgabe)$/) === null) {
-            fehler.push("Typ");
         }
         if (isNaN(formulardaten.betrag)) {
             fehler.push("Betrag");
@@ -157,11 +148,11 @@ const eingabeformular = {
     },
 
     anzeigen() {
-        document.querySelector("#navigationsleiste").insertAdjacentElement("afterend", this.html_generieren());
-        // Datum auf den heutigen Tag setzen
-        this.datum_aktualisieren();
+        let navigationsleiste = document.querySelector("#navigationsleiste");
+        if(navigationsleiste != null) {
+            navigationsleiste.insertAdjacentElement("afterend", this.html_generieren());
+            // Datum auf den heutigen Tag setzen
+            this.datum_aktualisieren();
+        }
     }
-
-
-
 };
