@@ -22,6 +22,4 @@ class Kinderkonto extends Konto {
             console.log("Auszahlung nicht möglich -> Kontolimit");
         }
     }
-
-    
 }
